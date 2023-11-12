@@ -11,28 +11,29 @@ import numpy as np
 from decimal import Decimal, getcontext
 
 
-def factorial(n):
-    if n == 0:  # базовый случай
-        return 1
-    else:
-        return n * factorial(n - 1)  # рекурсивный вызов функции
+def factorial(n):  # Функция для вычисления факториала
+    factorial = 1
+    for i in range(1, n + 1):
+        factorial = i * factorial
+    return factorial
 
 
-def matrix(n):
-    if n == 0:  # базовый случай
-        return x
-    else:
-        return x * matrix(n - 1)  # рекурсивный вызов функции
+def matrix(curr_x, n):  # Вычисляем матрицу
+    matrix = curr_x
+    for _ in range(n):
+        matrix *= matrix
+    return matrix
 
 
 # Функция для вычисления суммы знакопеременного ряда
 def sum_of_the_series(t):
     res = 0  # Переменная результата
     n = 1  # Номер слагаемого
+    curr_x = x  # Текущая матрица
     sign = random.choice([-1, 1])  # Переменная для смены знака(Знак первого слагаемого -случайный.)
 
     while True:
-        curr_term = Decimal(np.linalg.det(matrix(n - 1)) / factorial(n - 1))  # Вычисляем текущий член ряда
+        curr_term = Decimal(np.linalg.det(matrix(curr_x, n - 1)) / factorial(n - 1))  # Вычисляем текущий член ряда
 
         res += sign * curr_term  # Прибавляем его к результату с учетом знака
 
