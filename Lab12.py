@@ -70,7 +70,7 @@ try:
     result = sum_of_the_series(t)
 
     # Вывод результата
-    print(f"Сумма ряда с точностью {t} знаков после запятой: {result:.{t}f}".rstrip('0'))
+    print(f"Сумма ряда с точностью {t} знаков после запятой: {result:.{t}f}")
 
 
 except ValueError:
