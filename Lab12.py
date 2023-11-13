@@ -15,7 +15,6 @@ from decimal import Decimal, getcontext
 def sum_of_the_series(t):
     curr_x = x.copy()  # Текущая матрица
     factorial = 1  # Накопляемый факториал
-    res = 0  # Переменная результата
     curr_term = Decimal(np.linalg.det(curr_x))
     sign = random.choice([-1, 1])  # Переменная для смены знака(Знак первого слагаемого -случайный.)
     res += sign * curr_term  # Переменная результата
