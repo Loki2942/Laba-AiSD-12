@@ -10,39 +10,36 @@ import random
 import numpy as np
 from decimal import Decimal, getcontext
 
-
 # Функция для вычисления суммы знакопеременного ряда
 def sum_of_the_series(t):
+    n = 1  # Номер слагаемого
     curr_x = x.copy()  # Текущая матрица
     factorial = 1  # Накопляемый факториал
-    curr_term = Decimal(np.linalg.det(curr_x))
+    res = 0  #  Результат
     sign = random.choice([-1, 1])  # Переменная для смены знака(Знак первого слагаемого -случайный.)
-    res += sign * curr_term  # Переменная результата
-    n = 2  # Номер слагаемого
+
 
     while True:
+        curr_term = Decimal(np.linalg.det(np.linalg.matrix_power(curr_x, n - 1)) / factorial)  # Вычисляем текущий член ряда
+        res += sign * curr_term  # Прибавляем его к результату с учетом знака
+
         # Проверка точности
         if abs(curr_term) < 1 / (10 ** t):
             break
 
         # Меняем параметры для следующего слагаемого
-        curr_x *= x
-        n += 1
-        sign = -sign
-        factorial *= (n - 1)
-
-        curr_term = Decimal(np.linalg.det(curr_x) / factorial)  # Вычисляем текущий член ряда
-        res += sign * curr_term  # Прибавляем его к результату с учетом знака
+        n += 1  # увеличиваем номер слагаемого
+        sign = -sign  # меняем знак
+        factorial *= (n - 1)  # вычисляем факториал
 
     return res
-
 
 try:
     # Ввод значения t
     print("Введите число t, являющееся количеством знаков после запятой:")
     t = int(input())
     while t > 300 or t < 1:  # ошибка в случае введения слишком малой точности
-        t = int(input("Вы ввели число, неподходящее по условию, введите число t, большее или равное 1:\n"))
+        t = int(input("Вы ввели число, неподходящее по условию, введите число t, большее или равное 1, но иеньше 300:\n"))
     print()
 
     k = random.randint(2, 10)  # задание ранга матрицы
@@ -59,7 +56,9 @@ try:
     result = sum_of_the_series(t)
 
     # Вывод результата
-    print(f"Сумма ряда с точностью {t} знаков после запятой: {result:.{t}f}".rstrip('0'))
+    print(f"Сумма ряда с точностью {t} знаков после запятой: {result:.{t}f}")
 
 except ValueError:
     print("\nВведенный символ не является числом. Перезапустите программу и введите число.")
+
+
